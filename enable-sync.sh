@@ -2,14 +2,14 @@
 # enable-sync.sh — 在既有專案啟用 AI 開發標準自動同步
 #
 # 用法（在專案根目錄執行）：
-#   curl -sL https://raw.githubusercontent.com/kwanxin-dev/ai-dev-standard/main/enable-sync.sh | bash
+#   curl -sL https://raw.githubusercontent.com/<your-org>/ai-dev-standard/main/enable-sync.sh | bash
 #
 # 或本地執行：
 #   bash /path/to/ai-dev-standard/enable-sync.sh
 
 set -euo pipefail
 
-AI_STD_REPO="${AI_STD_REPO:-kwanxin-dev/ai-dev-standard}"
+AI_STD_REPO="${AI_STD_REPO:-<your-org>/ai-dev-standard}"
 AI_STD_REF="${AI_STD_REF:-main}"
 AI_STD_FILES=(
   "AGENTS.md"

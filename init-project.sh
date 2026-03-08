@@ -121,7 +121,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main, develop]
+    branches: [main]
 
 jobs:
   check:
@@ -129,17 +129,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: 安裝依賴
-        run: npm install
-
-      - name: 程式碼檢查
-        run: npm run lint
-
-      - name: 單元測試
-        run: npm test
-
-      - name: 建置確認
-        run: npm run build
+      # TODO: 依專案語言替換以下步驟
+      # Node.js:  npm install && npm run lint && npm test && npm run build
+      # PHP:      composer install && vendor/bin/phpunit
+      # Python:   pip install -r requirements.txt && pytest
+      # Go:       go build ./... && go test ./...
+      - name: Build & Test
+        run: echo "請替換為專案實際的 build/test 命令"
 EOF
 
 echo "  ✅ .github/workflows/ci.yml 建立完成"
@@ -195,7 +191,7 @@ echo "  ✅ .gitignore 建立完成"
 # --- 5. 下載 AI 開發標準檔案並啟用自動同步 ---
 echo "📥 下載 AI 開發標準檔案..."
 
-AI_STD_REPO="${AI_STD_REPO:-kwanxin-dev/ai-dev-standard}"
+AI_STD_REPO="${AI_STD_REPO:-<your-org>/ai-dev-standard}"
 AI_STD_REF="${AI_STD_REF:-main}"
 AI_STD_FILES=(
   "AGENTS.md"

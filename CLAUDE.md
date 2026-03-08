@@ -99,7 +99,6 @@ Claude 擁有超長上下文窗口，善用此優勢：
 - [ ] `.ai-memory/` 是否已同步最新狀態？
 
 ### 命名規範補充
-- 檔案名：`kebab-case`（如 `user-profile.ts`）
-- 元件名：`PascalCase`（如 `UserProfile`）
-- 函式名：`camelCase`（如 `getUserProfile`）
-- 常數名：`UPPER_SNAKE_CASE`（如 `MAX_RETRY_COUNT`）
+- 遵循專案所用語言/框架的社群慣例
+- 專案可在 `CLAUDE.local.md` 定義具體命名規範
+- 常數名建議：`UPPER_SNAKE_CASE`（如 `MAX_RETRY_COUNT`）

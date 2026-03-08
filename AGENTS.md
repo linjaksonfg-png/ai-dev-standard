@@ -412,6 +412,8 @@ CLAUDE.md        CODEX.md       GEMINI.md         ANTIGRAVITY.md
 ├── ANTIGRAVITY.md         ← Antigravity IDE 專屬擴展
 ├── skills-development-guide.md ← Skill 開發規範指南（架構、結構、加載、執行、安全）
 ├── skills-memory-standard.md ← skill 與集中記憶治理規範
+├── .ai-dev-standard.json  ← 自動同步元數據（來源、版本、時間）
+├── *.local.md             ← 專案專屬覆寫（不被同步覆蓋）
 ├── .ai-memory/            ← 所有 AI 共用記憶庫
 │   ├── decisions/         ← 架構決策（按主題分檔）
 │   ├── progress/          ← 開發進度（按模組分檔）
@@ -425,6 +427,40 @@ CLAUDE.md        CODEX.md       GEMINI.md         ANTIGRAVITY.md
 
 ---
 
+## 🔄 標準自動同步
+
+本檔案由中央 repo 自動同步，**請勿直接修改**。
+
+### 專案專屬覆寫機制
+
+若專案需要專屬設定（如 DB 連線、專案架構說明），請建立對應的 `.local.md` 檔案：
+
+| 中央檔案（自動同步） | 專案覆寫檔案（手動維護） |
+|---------------------|------------------------|
+| `AGENTS.md` | `AGENTS.local.md` |
+| `CLAUDE.md` | `CLAUDE.local.md` |
+| `CODEX.md` | `CODEX.local.md` |
+| `GEMINI.md` | `GEMINI.local.md` |
+| `ANTIGRAVITY.md` | `ANTIGRAVITY.local.md` |
+
+> **所有 AI 啟動時必須檢查**：若專案根目錄存在對應的 `.local.md` 檔案，**必須一併讀取**，其內容為本專案的專屬覆寫，優先於中央版本。
+
+### 同步設定
+
+同步元數據存於 `.ai-dev-standard.json`，由同步腳本自動維護。
+
+同步方式：
+1. **GitHub Action**：每週自動檢查並建立 PR
+2. **Git Hook**：每次 `git pull` 後提示是否有更新
+3. **手動執行**：`bash .github/scripts/sync-ai-standard.sh`
+
+### 啟用同步
+
+- **新專案**：執行 `init-project.sh` 自動啟用
+- **既有專案**：執行 `enable-sync.sh` 一鍵啟用
+
+---
+
 ## 🔄 本文件維護
 
 本文件是**動態文件**，應隨專案演進持續更新：
@@ -432,3 +468,4 @@ CLAUDE.md        CODEX.md       GEMINI.md         ANTIGRAVITY.md
 - 找到有效的開發模式 → 加入 ALWAYS 規則
 - 專案技術棧變更 → 更新程式碼規範
 - 修改本文件需使用者許可，因為會影響所有 AI 工具
+- ⚠️ 修改應在**中央 repo** 進行，再由同步機制分發到各專案

@@ -77,9 +77,16 @@ cd C:\path\to\your\new-project
 .\init-project.ps1
 ```
 
-腳本會自動建立：`.ai-memory/` 目錄結構、`.github/workflows/ci.yml`、`CODEOWNERS`、`.gitignore`
+腳本會自動建立：`.ai-memory/` 目錄結構、`.github/workflows/ci.yml`、`CODEOWNERS`、`.gitignore`，並**自動下載 AI 開發標準檔案 + 啟用自動同步**。
 
-### 方法 3：手動設定
+### 方法 3：既有專案啟用自動同步
+
+```bash
+# 在既有專案根目錄執行（會自動備份現有檔案為 *.local.md）
+curl -sL https://raw.githubusercontent.com/kwanxin-dev/ai-dev-standard/main/enable-sync.sh | bash
+```
+
+### 方法 4：手動設定
 
 1. 將 `AGENTS.md`、`CLAUDE.md`、`CODEX.md`、`GEMINI.md`、`ANTIGRAVITY.md` 複製到你的專案根目錄
 2. 建立 `.ai-memory/` 目錄結構（參考 AGENTS.md）
@@ -89,11 +96,23 @@ cd C:\path\to\your\new-project
 
 | AI 工具 | 會讀取的檔案 |
 |---------|-------------|
-| **Codex CLI** | AGENTS.md → CODEX.md → `.ai-memory/` |
-| **Claude Code** | AGENTS.md → CLAUDE.md → `.ai-memory/` |
-| **Gemini CLI** | AGENTS.md → GEMINI.md → `.ai-memory/` |
-| **Antigravity IDE** | AGENTS.md → ANTIGRAVITY.md → `.ai-memory/` |
-| **GitHub Copilot / Cursor** | AGENTS.md → `.ai-memory/` |
+| **Codex CLI** | AGENTS.md → CODEX.md → `*.local.md` → `.ai-memory/` |
+| **Claude Code** | AGENTS.md → CLAUDE.md → `CLAUDE.local.md` → `.ai-memory/` |
+| **Gemini CLI** | AGENTS.md → GEMINI.md → `*.local.md` → `.ai-memory/` |
+| **Antigravity IDE** | AGENTS.md → ANTIGRAVITY.md → `*.local.md` → `.ai-memory/` |
+| **GitHub Copilot / Cursor** | AGENTS.md → `*.local.md` → `.ai-memory/` |
+
+### 🔄 自動同步機制
+
+啟用後，專案會自動與中央 repo 保持同步：
+
+| 觸發方式 | 時機 | 行為 |
+|---------|------|------|
+| **GitHub Action** | 每週一凌晨 | 自動建立 PR（不直推主線） |
+| **Git Hook** | 每次 `git pull` | 提示是否有新版本 |
+| **手動** | 隨時 | `bash .github/scripts/sync-ai-standard.sh` |
+
+**專案專屬設定**不會被覆蓋 — 使用 `*.local.md` 檔案（如 `CLAUDE.local.md`）存放專案特有的設定。
 
 ---
 

@@ -13,9 +13,10 @@
 每次 Claude Code 啟動新對話時：
 1. 讀取 **AGENTS.md**（共用規則）
 2. 讀取 **本檔案**（Claude 專屬擴展）
-3. 讀取 `.ai-memory/progress/_index.md`（全域進度）
-4. 讀取最新的 `.ai-memory/context/session-*.md`（前次狀態）
-5. 檢查 `.ai-memory/issues/open.md`（未解決問題）
+3. **若存在 `CLAUDE.local.md`，必須讀取**（專案專屬覆寫，如 DB 連線、專案架構）
+4. 讀取 `.ai-memory/progress/_index.md`（全域進度）
+5. 讀取最新的 `.ai-memory/context/session-*.md`（前次狀態）
+6. 檢查 `.ai-memory/issues/open.md`（未解決問題）
 
 ---
 
